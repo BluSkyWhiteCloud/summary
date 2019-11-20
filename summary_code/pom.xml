@@ -18,6 +18,7 @@
     <modules>
         <module>cache</module>
         <module>login</module>
+        <module>activity</module>
     </modules>
 
 
