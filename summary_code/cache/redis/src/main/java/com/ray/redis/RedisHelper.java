@@ -7,7 +7,6 @@
  */
 package com.ray.redis;
 
-
 /**
  * K 指以hash结构操作时 键类型
  * T 为数据实体 应实现序列化接口,并定义serialVersionUID * RedisTemplate 提供了五种数据结构操作类型 hash / list / set / zset / value
@@ -19,7 +18,6 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
- *
  * @author liufeng
  * @version V1.0
  * @since 2019-10-15 17:37
@@ -65,6 +63,7 @@ public interface RedisHelper<HK, T> {
 
     /**
      * 对象的实体类
+     *
      * @param key
      * @param domain
      * @return
@@ -73,6 +72,7 @@ public interface RedisHelper<HK, T> {
 
     /**
      * 获取对象实体类
+     *
      * @param key
      * @return
      */

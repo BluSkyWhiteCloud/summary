@@ -28,7 +28,7 @@ import org.springframework.stereotype.Service;
  * @since 2019-10-15 17:39
  */
 @Service("RedisHelper")
-public class RedisHelperImpl<HK, T> implements RedisHelper<HK, T>  {
+public class RedisHelperImpl<HK, T> implements RedisHelper<HK, T> {
 
     // 在构造器中获取redisTemplate实例, key(not hashKey) 默认使用String类型
     private RedisTemplate<String, T> redisTemplate;

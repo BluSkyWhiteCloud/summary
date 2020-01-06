@@ -40,7 +40,7 @@ import java.lang.reflect.Method;
  */
 @Configuration
 @EnableCaching
-public class RedisConfiguration  extends CachingConfigurerSupport {
+public class RedisConfiguration extends CachingConfigurerSupport {
 
     /**
      * 自定义生成key的规则
@@ -67,15 +67,15 @@ public class RedisConfiguration  extends CachingConfigurerSupport {
     }
 
     // 这个注释不能放开，发现自定义缓存管理器，会导致实体解析失败
+
     /**
      * 采用RedisCacheManager作为缓存管理器
      */
-//    @Bean
-//    public CacheManager cacheManager(RedisConnectionFactory connectionFactory) {
-//        RedisCacheManager redisCacheManager = RedisCacheManager.create(connectionFactory);
-//        return  redisCacheManager;
-//    }
-
+    //    @Bean
+    //    public CacheManager cacheManager(RedisConnectionFactory connectionFactory) {
+    //        RedisCacheManager redisCacheManager = RedisCacheManager.create(connectionFactory);
+    //        return  redisCacheManager;
+    //    }
     @Bean
     public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory) {
         ////解决键、值序列化问题

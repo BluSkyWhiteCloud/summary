@@ -34,17 +34,18 @@ public class JwtUtil {
     // 过期时间30分钟
     public static final long EXPIRE_TIME = 30 * 60;
 
-    /** token 过期时间: 60小时 */
+    /**
+     * token 过期时间: 60小时
+     */
     public static final int CALENDARFIELD = Calendar.MINUTE;
     public static final int CALENDARINTERVAL = 30;
 
     /**
      * JWT生成Token.<br/>
-     *
+     * <p>
      * JWT构成: header, payload, signature
      *
-     * @param userId
-     *            登录成功后用户userId, 参数userId不可传空
+     * @param userId 登录成功后用户userId, 参数userId不可传空
      */
     public static String createToken(String userId) throws Exception {
         Date iatDate = new Date();
@@ -68,11 +69,8 @@ public class JwtUtil {
          * withExpiresAt : expire time
          * sign :signature
          */
-        return JWT.create().withHeader(map)
-            .withClaim("iss", "Service")
-            .withClaim("aud", "APP")
-            .withClaim("user_id", StringUtils.isBlank(userId) ? null : userId)
-            .withIssuedAt(iatDate)
+        return JWT.create().withHeader(map).withClaim("iss", "Service").withClaim("aud", "APP")
+            .withClaim("user_id", StringUtils.isBlank(userId) ? null : userId).withIssuedAt(iatDate)
             //                .withExpiresAt(expiresDate)
             .sign(Algorithm.HMAC256(SECRET));
     }
@@ -84,7 +82,7 @@ public class JwtUtil {
      * @return
      * @throws Exception
      */
-    public static Map<String, Claim> verifyToken(String token) throws Exception{
+    public static Map<String, Claim> verifyToken(String token) throws Exception {
         DecodedJWT jwt = null;
         Map<String, Claim> claims = null;
 
@@ -106,7 +104,7 @@ public class JwtUtil {
      * @param token
      * @return user_id
      */
-    public static String getAppUID(String token) throws Exception{
+    public static String getAppUID(String token) throws Exception {
         Map<String, Claim> claims = verifyToken(token);
         Claim userIdClaim = claims.get("user_id");
         if (null == userIdClaim || StringUtils.isEmpty(userIdClaim.asString())) {
@@ -114,7 +112,8 @@ public class JwtUtil {
         }
         return userIdClaim.asString();
     }
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         try {
             String token = createToken("jt501");
             System.out.println("token ======== " + token);
