@@ -1,0 +1,34 @@
+spring:
+  kafka:
+    listener:
+      #
+      missing-topics-fatal: false
+    producer:
+      #客户端如果发送失败则会重新发送
+      retries: 0
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      bootstrap-servers: 127.0.0.1:9092
+      #生产者需要leader确认请求完成之前接收的应答数
+      #acks=0 如果设置为0，那么生产者将不等待任何消息确认。消息将立刻添加到socket缓冲区并考虑发送。
+      #       在这种情况下不能保障消息被服务器接收到。并且重试机制不会生效（因为客户端不知道故障了没有）。每个消息返回的offset始终设置为-1。
+      #acks=1，这意味着leader写入消息到本地日志就立即响应，而不等待所有follower应答。在这种情况下，如果响应消息之后但follower还未复制之前leader立即故障，那么消息将会丢失。
+      #acks=all 这意味着leader将等待所有副本同步后应答消息。此配置保障消息不会丢失（只要至少有一个同步的副本或者）。这是最强壮的可用性保障。等价于acks=-1。
+      acks: all
+
+    consumer:
+      bootstrap-servers: 127.0.0.1:9092
+      #此消费者所属消费者组的唯一标识。如果消费者用于订阅或offset管理策略的组管理功能，则此属性是必须的。
+      group-id: foo
+      #（实时生产，实时消费，不会从头开始消费）
+      #如果存在已经提交的offset时，不管设置为earliest或者 latest 都会从已提交的offset处开始消费
+      #如果不存在已经提交的offset时，earliest表示从头开始消费，latest表示从最新的数据开始消费（也就是新产生的数据）
+      #none：如果消费者组找到之前的offset，则向消费者抛出异常
+      #其他：抛出异常给消费者。
+      auto-offset-reset: earliest
+      #是否自动提交
+      enable-auto-commit: true
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer

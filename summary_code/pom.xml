@@ -19,6 +19,9 @@
         <module>cache</module>
         <module>login</module>
         <module>activity</module>
+        <module>kafka</module>
+        <module>breaker</module>
+        <!--<module>distribute_lock</module>-->
     </modules>
 
 
